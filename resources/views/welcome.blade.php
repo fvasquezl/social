@@ -3,17 +3,10 @@
     <div class="container">
         <div class="row">
             <div class="col-8 mx-auto">
-                <div class="card border-0 bg-light">
-                    <form action="{{route('statuses.store')}}" method="POST">
-                        @csrf
-                        <div class="card-body">
-                            <textarea class="form-control border-0 bg-light" name="body" placeholder="what you think Faustino?"></textarea>
-                        </div>
-                        <div class="card-footer">
-                            <button class="btn btn-primary" id="create-status">Publish</button>
-                        </div>
-                    </form>
+                <div class="card border-0 bg-light mb-3 shadow-sm">
+                    <status-form></status-form>
                 </div>
+                <statuses-list></statuses-list>
             </div>
         </div>
     </div>

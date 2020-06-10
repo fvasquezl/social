@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class UsersCanCReateStatusesTest extends DuskTestCase
+class UsersCanCreateStatusesTest extends DuskTestCase
 {
     use DatabaseMigrations;
     /**
@@ -24,6 +24,7 @@ class UsersCanCReateStatusesTest extends DuskTestCase
                 ->visit('/')
                 ->type('body', 'My first status')
                 ->press('#create-status')
+                ->waitForText('My first status')
                 ->assertSee('My first status');
         });
     }
