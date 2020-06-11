@@ -24,15 +24,15 @@ class ListStatusesTest extends TestCase
         $response = $this->getJson(route('statuses.index'));
         $response->assertSuccessful();
         $response->assertJson([
-            'total' => 4
+            'meta'=>['total' => 4]
         ]);
         $response->assertJsonStructure([
-            'data', 'total', 'first_page_url', 'last_page_url'
+            'data', 'links'=> ['prev', 'next']
         ]);
 
         $this->assertEquals(
-            $statuses4->id,
-            $response->json('data.0.id')
+            $statuses4->body,
+            $response->json('data.0.body')
        );
     }
 }
