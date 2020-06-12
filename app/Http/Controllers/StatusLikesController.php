@@ -21,4 +21,17 @@ class StatusLikesController extends Controller
 
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Status $status
+     * @return void
+     */
+    public function destroy(Status $status)
+    {
+
+        $status->unlike();
+
+    }
+
 }
