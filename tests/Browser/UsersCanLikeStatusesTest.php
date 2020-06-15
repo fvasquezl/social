@@ -18,6 +18,26 @@ class UsersCanLikeStatusesTest extends DuskTestCase
      * @test
      * @throws \Throwable
      */
+    public function guest_users_cannot_like_statuses()
+    {
+
+        $status = factory(Status::class)->create();
+
+        $this->browse(function (Browser $browser) use ($status) {
+            $browser->visit('/')
+                ->waitForText($status->body)
+                ->press('@like-btn')
+                ->assertPathIs('/login');
+        });
+    }
+
+
+    /**
+     * A Dusk test example.
+     *
+     * @test
+     * @throws \Throwable
+     */
     public function users_can_like_unlike_statuses()
     {
         $user = factory(User::class)->create();
@@ -27,15 +47,17 @@ class UsersCanLikeStatusesTest extends DuskTestCase
             $browser->loginAs($user)
                 ->visit('/')
                 ->waitForText($status->body)
+                ->assertSeeIn('@likes-count', 0)
                 ->press('@like-btn')
                 ->waitForText('You Liked')
                 ->assertSee('You Liked')
-
+                ->assertSeeIn('@likes-count', 1)
                 ->press('@unlike-btn')
-                ->screenshot('button')
                 ->waitForText('I Like')
-                ->assertSee('I Like');
-
+                ->assertSee('I Like')
+                ->assertSeeIn('@likes-count', 0);
         });
     }
+
+
 }

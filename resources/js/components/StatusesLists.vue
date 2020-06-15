@@ -1,9 +1,10 @@
 <template>
-    <div>
+    <div @click="redirectIfGuest">
         <div class="card border-0 mb-3 shadow-sm" v-for="status in statuses">
             <div class="card-body d-flex flex-column">
                 <div class=" d-flex align-items-center mb-3">
-                    <img class="rounded mr-3 shadow-sm" width="40px" src="https://aprendible.com/images/default-avatar.jpg" alt="">
+                    <img class="rounded mr-3 shadow-sm" width="40px"
+                         src="https://aprendible.com/images/default-avatar.jpg" alt="">
                     <div>
                         <h5 class="mb-1" v-text="status.user_name"></h5>
                         <div class="small text-muted" v-text="status.ago"></div>
@@ -12,22 +13,26 @@
                 <p class="card-text text-secondary" v-text="status.body"></p>
 
             </div>
-            <div class="card-footer p-2" >
+            <div class="card-footer p-2 d-flex justify-content-between align-items-center">
                 <button v-if="status.is_liked"
                         @click="unlike(status)"
                         class="btn btn-link btn-sm"
                         dusk="unlike-btn"
                 ><strong>
                     <i class="far fa-thumbs-up mr-1"></i>
-                    You Liked</strong>
-                </button>
+                    YOU LIKE</strong></button>
                 <button v-else
                         @click="like(status)"
                         class="btn btn-link btn-sm"
                         dusk="like-btn"
-                        >
-                    <i class="fa fa-thumbs-up mr-1"></i>
-                    I Like</button>
+                ><i class="far fa-thumbs-up text-primary mr-1"></i>
+                    I LIKE
+                </button>
+                <div class="text-secondary mr-2">
+                    <i class="far fa-thumbs-up"></i>
+                    <span dusk="likes-count">{{status.likes_count}}</span>
+                </div>
+
             </div>
         </div>
     </div>
@@ -52,25 +57,27 @@
                 this.statuses.unshift(status)
             })
         },
-        methods:{
-            like(status){
+        methods: {
+            like(status) {
                 axios.post(`/statuses/${status.id}/likes`)
-                .then(res=>{
-                    status.is_liked = true;
-                })
-                .catch(err=>{
+                    .then(res => {
+                        status.is_liked = true;
+                        status.likes_count++;
+                    })
+                    .catch(err => {
 
-                })
+                    })
             },
-            unlike(status){
+            unlike(status) {
                 axios.delete(`/statuses/${status.id}/likes`)
-                .then(res=>{
-                    status.is_liked = false;
-                })
-                .catch(err=>{
+                    .then(res => {
+                        status.is_liked = false;
+                        status.likes_count--;
+                    })
+                    .catch(err => {
 
-                })
-            }
+                    })
+            },
         }
     };
 </script>
