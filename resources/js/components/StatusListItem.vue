@@ -13,45 +13,26 @@
 
         </div>
         <div class="card-footer p-2 d-flex justify-content-between align-items-center">
-
+            <like-btn :status="status"></like-btn>
             <div class="text-secondary mr-2">
                 <i class="far fa-thumbs-up"></i>
                 <span dusk="likes-count">{{status.likes_count}}</span>
             </div>
-
         </div>
     </div>
 </template>
 
 <script>
+    import LikeBtn from "./LikeBtn";
     export default {
+        components: {
+            LikeBtn
+        },
         props: {
             status: {
                 type: Object,
                 required: true
             }
-        },
-        methods: {
-            like(status) {
-                axios.post(`/statuses/${status.id}/likes`)
-                    .then(res => {
-                        status.is_liked = true;
-                        status.likes_count++;
-                    })
-                    .catch(err => {
-
-                    })
-            },
-            unlike(status) {
-                axios.delete(`/statuses/${status.id}/likes`)
-                    .then(res => {
-                        status.is_liked = false;
-                        status.likes_count--;
-                    })
-                    .catch(err => {
-
-                    })
-            },
         }
     }
 </script>
