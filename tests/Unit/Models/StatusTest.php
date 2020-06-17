@@ -2,9 +2,10 @@
 
 namespace Tests\Unit\Models;
 
+use App\User;
 use App\Models\Like;
 use App\Models\Status;
-use App\User;
+use App\Models\Comment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 //use PHPUnit\Framework\TestCase;
@@ -26,7 +27,7 @@ class StatusTest extends TestCase
     {
         $status = factory(Status::class)->create();
         factory(Like::class)->create([
-            'status_id'=>$status->id
+            'status_id' => $status->id
         ]);
 
         $this->assertInstanceOf(Like::class, $status->likes->first());
@@ -42,11 +43,11 @@ class StatusTest extends TestCase
 
         $status->like();
 
-        $this->assertEquals(1,$status->fresh()->likes->count());
+        $this->assertEquals(1, $status->fresh()->likes->count());
 
         $status->unlike();
 
-        $this->assertEquals(0,$status->fresh()->likes->count());
+        $this->assertEquals(0, $status->fresh()->likes->count());
 
     }
 
@@ -59,10 +60,10 @@ class StatusTest extends TestCase
         $this->actingAs(factory(User::class)->create());
 
         $status->like();
-        $this->assertEquals(1,$status->likes->count());
+        $this->assertEquals(1, $status->likes->count());
 
         $status->like();
-        $this->assertEquals(1,$status->fresh()->likes->count());
+        $this->assertEquals(1, $status->fresh()->likes->count());
     }
 
 
@@ -86,11 +87,26 @@ class StatusTest extends TestCase
 
         $this->assertEquals(0, $status->likesCount());
 
-        factory(Like::class,2)->create([
-            'status_id'=>$status->id
+        factory(Like::class, 2)->create([
+            'status_id' => $status->id
         ]);
 
-        $this->assertEquals(2, $status->likesCount());
+        $this->assertEquals(
+            2,
+            $status->likesCount()
+        );
+    }
+
+
+    /** @test */
+    public function a_state_has_many_comments()
+    {
+        $status = factory(Status::class)->create();
+        factory(Comment::class)->create([
+            'status_id' => $status->id
+        ]);
+
+        $this->assertInstanceOf(Comment::class, $status->comments->first());
     }
 
 }

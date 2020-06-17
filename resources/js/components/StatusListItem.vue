@@ -19,19 +19,66 @@
                 <span dusk="likes-count">{{status.likes_count}}</span>
             </div>
         </div>
+        <div class="card-footer">
+            <div v-for="comment in comments" class="mb-3">
+                <img  class="rounded shadow-sm float-left mr-2" width="34px" :src="comment.user_avatar" :alt="comment.user_name">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-2 text-secondary">
+                        <a href=""> <strong>{{comment.user_name}}</strong></a>
+                        {{comment.body}}
+                    </div>
+                </div>
+            </div>
+            <form @submit.prevent="addComment" v-if="isAuthenticated">
+                <div class="d-flex align-items-center">
+                    <img class="rounded shadow-sm float-left mr-2"
+                         width="34px"
+                         src="https://aprendible.com/images/default-avatar.jpg"
+                         :alt="currentUser.name">
+                    <div class="input-group">
+                        <textarea  v-model="newComment"
+                                   class="form-control border-0 shadow-sm"
+                                   name="comment"
+                                   placeholder="Type a comment"
+                                   rows="1"
+                        ></textarea>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary "dusk="comment-btn">Submit</button>
+                        </div>
+                    </div>
+
+                </div>
+        </form>
+        </div>
     </div>
 </template>
 
 <script>
     import LikeBtn from "./LikeBtn";
+
     export default {
         components: {
             LikeBtn
+        },
+        data() {
+            return {
+                newComment: '',
+                comments: this.status.comments
+            }
         },
         props: {
             status: {
                 type: Object,
                 required: true
+            }
+        },
+        methods: {
+            addComment() {
+                axios.post(`/statuses/${this.status.id}/comments`, {body: this.newComment})
+                    .then(res => {
+                        this.newComment = ''
+                        this.comments.push(res.data.data)
+                    })
             }
         }
     }
