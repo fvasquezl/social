@@ -23,16 +23,29 @@ class StatusTest extends TestCase
     }
 
     /** @test */
-    public function a_state_has_many_likes()
+    public function a_state_morph_many_likes()
     {
         $status = factory(Status::class)->create();
+
         factory(Like::class)->create([
-            'status_id' => $status->id
+            'likeable_id' =>$status->id,  //1
+            'likeable_type' => get_class($status)  // App\\Models\\Status
         ]);
 
         $this->assertInstanceOf(Like::class, $status->likes->first());
     }
 
+
+    /** @test */
+    public function a_state_has_many_comments()
+    {
+        $status = factory(Status::class)->create();
+        factory(Comment::class)->create([
+            'status_id' => $status->id
+        ]);
+
+        $this->assertInstanceOf(Comment::class, $status->comments->first());
+    }
 
     /** @test */
     public function a_state_can_be_liked_and_unlike()
@@ -87,8 +100,9 @@ class StatusTest extends TestCase
 
         $this->assertEquals(0, $status->likesCount());
 
-        factory(Like::class, 2)->create([
-            'status_id' => $status->id
+        factory(Like::class,2)->create([
+            'likeable_id' =>$status->id,  //1
+            'likeable_type' => get_class($status)  // App\\Models\\Status
         ]);
 
         $this->assertEquals(
@@ -96,17 +110,4 @@ class StatusTest extends TestCase
             $status->likesCount()
         );
     }
-
-
-    /** @test */
-    public function a_state_has_many_comments()
-    {
-        $status = factory(Status::class)->create();
-        factory(Comment::class)->create([
-            'status_id' => $status->id
-        ]);
-
-        $this->assertInstanceOf(Comment::class, $status->comments->first());
-    }
-
 }

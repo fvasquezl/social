@@ -1981,6 +1981,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2116,6 +2118,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2143,6 +2146,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.newComment = '';
 
         _this.comments.push(res.data.data);
+      })["catch"](function (err) {
+        console.log(err.response.data);
       });
     }
   }
@@ -37782,7 +37787,8 @@ var render = function() {
                 staticClass: "form-control border-0 bg-light",
                 attrs: {
                   placeholder: "what you think " + _vm.currentUser.name + "?",
-                  name: "body"
+                  name: "body",
+                  required: ""
                 },
                 domProps: { value: _vm.body },
                 on: {
@@ -37993,7 +37999,8 @@ var render = function() {
                       attrs: {
                         name: "comment",
                         placeholder: "Type a comment",
-                        rows: "1"
+                        rows: "1",
+                        required: ""
                       },
                       domProps: { value: _vm.newComment },
                       on: {

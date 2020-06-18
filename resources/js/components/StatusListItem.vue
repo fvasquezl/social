@@ -41,6 +41,7 @@
                                    name="comment"
                                    placeholder="Type a comment"
                                    rows="1"
+                                   required
                         ></textarea>
                         <div class="input-group-append">
                             <button class="btn btn-primary "dusk="comment-btn">Submit</button>
@@ -78,6 +79,9 @@
                     .then(res => {
                         this.newComment = ''
                         this.comments.push(res.data.data)
+                    })
+                    .catch(err => {
+                        console.log(err.response.data)
                     })
             }
         }
