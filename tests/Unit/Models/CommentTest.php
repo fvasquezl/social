@@ -3,7 +3,7 @@
 namespace Tests\Unit\Models;
 
 use App\Models\Comment;
-use App\Models\Like;
+use App\Traits\HasLikes;
 use App\User;
 
 
@@ -25,32 +25,9 @@ class CommentTest extends TestCase
     }
 
     /** @test */
-    public function a_comment_morph_many_likes()
+    public function a_comment_model_must_use_the_trait_has_likes()
     {
-        $comment = factory( Comment::class)->create();
-
-        factory(Like::class)->create([
-            'likeable_id' =>$comment->id,  //1
-            'likeable_type' => get_class($comment)  // App\\Models\\Comment
-        ]);
-
-        $this->assertInstanceOf(Like::class,$comment->likes->first());
+        $this->assertClassUsesTrait(HasLikes::class,Comment::class);
     }
 
-    /** @test */
-    public function a_comment_can_be_liked_and_unlike()
-    {
-        $comment = factory(Comment::class)->create();
-
-        $this->actingAs(factory(User::class)->create());
-
-        $comment->like();
-
-        $this->assertEquals(1, $comment->fresh()->likes->count());
-
-        $comment->unlike();
-
-        $this->assertEquals(0, $comment->fresh()->likes->count());
-
-    }
 }
