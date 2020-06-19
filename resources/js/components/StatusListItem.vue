@@ -28,6 +28,8 @@
                         {{comment.body}}
                     </div>
                 </div>
+                fddfdfd
+                <span dusk="comment-likes-count">{{comment.likes_count}}</span>
             </div>
             <form @submit.prevent="addComment" v-if="isAuthenticated">
                 <div class="d-flex align-items-center">

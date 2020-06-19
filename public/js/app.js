@@ -2119,6 +2119,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -37959,6 +37961,10 @@ var render = function() {
                     "\n                "
                 )
               ])
+            ]),
+            _vm._v("\n            fddfdfd\n            "),
+            _c("span", { attrs: { dusk: "comment-likes-count" } }, [
+              _vm._v(_vm._s(comment.likes_count))
             ])
           ])
         }),
