@@ -13,23 +13,45 @@
 
         </div>
         <div class="card-footer p-2 d-flex justify-content-between align-items-center">
-            <like-btn :status="status"></like-btn>
+            <like-btn
+                dusk="like-btn"
+                :url="`/statuses/${status.id}/likes`"
+                :model="status">
+            </like-btn>
+
             <div class="text-secondary mr-2">
                 <i class="far fa-thumbs-up"></i>
                 <span dusk="likes-count">{{status.likes_count}}</span>
             </div>
         </div>
         <div class="card-footer">
+
             <div v-for="comment in comments" class="mb-3">
-                <img  class="rounded shadow-sm float-left mr-2" width="34px" :src="comment.user_avatar" :alt="comment.user_name">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body p-2 text-secondary">
-                        <a href=""> <strong>{{comment.user_name}}</strong></a>
-                        {{comment.body}}
+                <div class="d-flex">
+                    <img class="rounded shadow-sm  mr-2" height="34px" width="34px" :src="comment.user_avatar"
+                         :alt="comment.user_name">
+                    <div class="flex-grow-1">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-2 text-secondary">
+                            <a href=""> <strong>{{comment.user_name}}</strong></a>
+                            {{comment.body}}
+                        </div>
+                    </div>
+                        <small class="badge badge-pill badge-primary py-1 px-2 mt-1 float-right" dusk="comment-likes-count">
+                            <i class="fa fa-thumbs-up"></i>
+                            {{comment.likes_count}}
+                        </small>
+
+                        <like-btn
+                            dusk="comment-like-btn"
+                            :url="`/comments/${comment.id}/likes`"
+                            :model="comment"
+                            class="comments-like-btn"
+                        ></like-btn>
                     </div>
                 </div>
-                fddfdfd
-                <span dusk="comment-likes-count">{{comment.likes_count}}</span>
+
+
             </div>
             <form @submit.prevent="addComment" v-if="isAuthenticated">
                 <div class="d-flex align-items-center">
@@ -38,20 +60,20 @@
                          src="https://aprendible.com/images/default-avatar.jpg"
                          :alt="currentUser.name">
                     <div class="input-group">
-                        <textarea  v-model="newComment"
-                                   class="form-control border-0 shadow-sm"
-                                   name="comment"
-                                   placeholder="Type a comment"
-                                   rows="1"
-                                   required
+                        <textarea v-model="newComment"
+                                  class="form-control border-0 shadow-sm"
+                                  name="comment"
+                                  placeholder="Type a comment"
+                                  rows="1"
+                                  required
                         ></textarea>
                         <div class="input-group-append">
-                            <button class="btn btn-primary "dusk="comment-btn">Submit</button>
+                            <button class="btn btn-primary " dusk="comment-btn">Submit</button>
                         </div>
                     </div>
 
                 </div>
-        </form>
+            </form>
         </div>
     </div>
 </template>

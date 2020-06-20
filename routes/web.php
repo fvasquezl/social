@@ -33,6 +33,10 @@ Route::delete('comments/{comment}/likes','CommentLikeController@destroy')
     ->name('comments.likes.destroy')
     ->middleware('auth');
 
+//User routes
+Route::get('@{user}','UsersController@show')
+    ->name('users.show');
+
 Auth::routes();
 
 
