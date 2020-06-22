@@ -18,8 +18,7 @@ class StatusResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'body' => $this->resource->body,
-            'user_name' => $this->user->name,
-            'user_avatar' => 'https://aprendible.com/images/default-avatar.jpg',
+            'user' => UserResource::make($this->user),
             'ago' => $this->created_at->diffForHumans(),
             'is_liked' =>$this->isliked(),
             'likes_count' =>$this->likesCount(),

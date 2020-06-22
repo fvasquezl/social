@@ -37,8 +37,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getRouteKey()
+    public function getRouteKeyName()
     {
         return 'name';
+    }
+
+    public function link()
+    {
+        return route('users.show',$this);
+    }
+
+    public function avatar()
+    {
+        return 'https://aprendible.com/images/default-avatar.jpg';
     }
 }
