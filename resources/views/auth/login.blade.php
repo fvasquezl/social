@@ -16,7 +16,6 @@
                                        class="form-control border-0 @error('email') is-invalid @enderror"
                                        name="email"
                                        value="{{ old('email') }}"
-                                       required
                                        autocomplete="email"
                                        autofocus
                                        placeholder="Your email...">
@@ -34,7 +33,6 @@
                                        type="password"
                                        class="form-control border-0 @error('password') is-invalid @enderror"
                                        name="password"
-                                       required autocomplete="current-password"
                                        placeholder="Your password...">
 
                                 @error('password')
@@ -60,7 +58,7 @@
                             <div class="form-group mb-0">
                                 <button type="submit"
                                         class="btn btn-primary  btn-block"
-                                        id="login-btn">
+                                        dusk="login-btn">
                                     {{ __('Login') }}
                                 </button>
 

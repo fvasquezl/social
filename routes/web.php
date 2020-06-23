@@ -37,6 +37,19 @@ Route::delete('comments/{comment}/likes','CommentLikeController@destroy')
 Route::get('@{user}','UsersController@show')
     ->name('users.show');
 
+//Users statuses routes
+Route::get('users/{user}/statuses','UsersStatusController@index')
+    ->name('users.statuses.index');
+
+//Friendships routes
+Route::post('friendships/{recipient}','FriendshipsController@store')
+    ->name('friendships.store');
+
+//request FriendShip routes
+Route::post('request-friendships/{sender}','RequestFriendshipsController@store')
+    ->name('request-friendships.store');
+
+
 Auth::routes();
 
 
