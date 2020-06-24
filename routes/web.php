@@ -20,41 +20,49 @@ Route::delete('statuses/{status}/likes', 'StatusLikesController@destroy')
     ->middleware('auth');
 
 //Status Comment routes
-Route::post('statuses/{status}/comments','StatusCommentsController@store')
+Route::post('statuses/{status}/comments', 'StatusCommentsController@store')
     ->name('statuses.comments.store')
     ->middleware('auth');
 
 //Comments likes routes
-Route::post('comments/{comment}/likes','CommentLikeController@store')
+Route::post('comments/{comment}/likes', 'CommentLikeController@store')
     ->name('comments.likes.store')
     ->middleware('auth');
 
-Route::delete('comments/{comment}/likes','CommentLikeController@destroy')
+Route::delete('comments/{comment}/likes', 'CommentLikeController@destroy')
     ->name('comments.likes.destroy')
     ->middleware('auth');
 
 //User routes
-Route::get('@{user}','UsersController@show')
+Route::get('@{user}', 'UsersController@show')
     ->name('users.show');
 
 //Users statuses routes
-Route::get('users/{user}/statuses','UsersStatusController@index')
+Route::get('users/{user}/statuses', 'UsersStatusController@index')
     ->name('users.statuses.index');
 
 //Friendships routes
-Route::post('friendships/{recipient}','FriendshipsController@store')
-    ->name('friendships.store');
+Route::post('friendships/{recipient}', 'FriendshipsController@store')
+    ->name('friendships.store')
+    ->middleware('auth');
 
-Route::delete('friendships/{recipient}','FriendshipsController@destroy')
-    ->name('friendships.destroy');
+Route::delete('friendships/{recipient}', 'FriendshipsController@destroy')
+    ->name('friendships.destroy')
+    ->middleware('auth');
 
 
 //Accept FriendShip routes
-Route::post('accept-friendships/{sender}','AcceptFriendshipsController@store')
-    ->name('accept-friendships.store');
+Route::get('friend/requests', 'AcceptFriendshipsController@index')
+    ->name('accept-friendships.index')
+   ;
 
-Route::delete('accept-friendships/{sender}','AcceptFriendshipsController@destroy')
-    ->name('accept-friendships.destroy');
+Route::post('accept-friendships/{sender}', 'AcceptFriendshipsController@store')
+    ->name('accept-friendships.store')
+    ->middleware('auth');
+
+Route::delete('accept-friendships/{sender}', 'AcceptFriendshipsController@destroy')
+    ->name('accept-friendships.destroy')
+    ->middleware('auth');
 
 
 Auth::routes();

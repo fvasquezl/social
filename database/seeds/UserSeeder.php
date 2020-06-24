@@ -14,6 +14,9 @@ class UserSeeder extends Seeder
     {
         User::truncate();
 
-        factory(User::class)->create(['email'=>'fvasquez@local.com']);
+        factory(User::class)->create([
+            'name' => 'fvasquez',
+            'email'=>'fvasquez@local.com'
+        ]);
     }
 }

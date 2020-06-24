@@ -8,6 +8,21 @@ use Illuminate\Http\Request;
 
 class AcceptFriendshipsController extends Controller
 {
+
+
+    public function index()
+    {
+        $friendshipRequests = Friendship::with('sender')->where([
+            'recipient_id' => auth()->id()
+        ])->get();
+
+        return view('friendships.index',compact('friendshipRequests'));
+    }
+
+
+    /**
+     * @param User $sender
+     */
     public function store(User $sender)
     {
         Friendship::where([
@@ -16,6 +31,9 @@ class AcceptFriendshipsController extends Controller
         ])->update(['status'=> 'accepted']);
     }
 
+    /**
+     * @param User $sender
+     */
     public function destroy(User $sender)
     {
         Friendship::where([
