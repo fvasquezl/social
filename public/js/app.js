@@ -2244,25 +2244,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _LikeBtn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LikeBtn */ "./resources/js/components/LikeBtn.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _CommentList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CommentList */ "./resources/js/components/CommentList");
+/* harmony import */ var _CommentList__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_CommentList__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -2324,14 +2307,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    LikeBtn: _LikeBtn__WEBPACK_IMPORTED_MODULE_0__["default"]
+    LikeBtn: _LikeBtn__WEBPACK_IMPORTED_MODULE_0__["default"],
+    CommentList: _CommentList__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   data: function data() {
     return {
-      newComment: '',
-      comments: this.status.comments
+      newComment: ''
     };
   },
   props: {
@@ -2348,8 +2332,7 @@ __webpack_require__.r(__webpack_exports__);
         body: this.newComment
       }).then(function (res) {
         _this.newComment = '';
-
-        _this.comments.push(res.data.data);
+        EventBus.$emit("statuses.".concat(_this.status.id, ".comments"), res.data.data);
       })["catch"](function (err) {
         console.log(err.response.data);
       });
@@ -44945,67 +44928,7 @@ var render = function() {
       "div",
       { staticClass: "card-footer" },
       [
-        _vm._l(_vm.comments, function(comment) {
-          return _c("div", { staticClass: "mb-3" }, [
-            _c("div", { staticClass: "d-flex" }, [
-              _c("img", {
-                staticClass: "rounded shadow-sm  mr-2",
-                attrs: {
-                  height: "34px",
-                  width: "34px",
-                  src: comment.user.avatar,
-                  alt: comment.user.name
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "flex-grow-1" },
-                [
-                  _c("div", { staticClass: "card border-0 shadow-sm" }, [
-                    _c("div", { staticClass: "card-body p-2 text-secondary" }, [
-                      _c("a", { attrs: { href: comment.user.link } }, [
-                        _c("strong", [_vm._v(_vm._s(comment.user.name))])
-                      ]),
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(comment.body) +
-                          "\n                    "
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "small",
-                    {
-                      staticClass:
-                        "badge badge-pill badge-primary py-1 px-2 mt-1 float-right",
-                      attrs: { dusk: "comment-likes-count" }
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-thumbs-up" }),
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(comment.likes_count) +
-                          "\n                    "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("like-btn", {
-                    staticClass: "comments-like-btn",
-                    attrs: {
-                      dusk: "comment-like-btn",
-                      url: "/comments/" + comment.id + "/likes",
-                      model: comment
-                    }
-                  })
-                ],
-                1
-              )
-            ])
-          ])
-        }),
+        _c("comment-list"),
         _vm._v(" "),
         _vm.isAuthenticated
           ? _c(
@@ -45064,7 +44987,7 @@ var render = function() {
             )
           : _vm._e()
       ],
-      2
+      1
     )
   ])
 }
@@ -57407,6 +57330,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AcceptFriendshipBtn_vue_vue_type_template_id_de595a42_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/components/CommentList":
+/*!*********************************************!*\
+  !*** ./resources/js/components/CommentList ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+throw new Error("Module parse failed: Unexpected token (1:0)\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\n> <template>\n|     <div>\n| <!--        <div v-for=\"comment in comments\" class=\"mb-3\">-->");
 
 /***/ }),
 
