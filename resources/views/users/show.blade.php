@@ -6,16 +6,21 @@
                 <div class="card border-0 bg-light shadow-sm">
                     <img src="{{$user->avatar}}" alt="" class="card-img-top">
                     <div class="card-body">
+                        @if(auth()->id()=== $user->id)
                         <h5 class="card-title">
-                            {{$user->name}}
+                            {{$user->name}} <small class="text-secondary">Are you</small>
                         </h5>
+                        @else
+                            <h5 class="card-title">
+                                {{$user->name}}
+                            </h5>
                         <friendship-btn
                             class="btn btn-primary btn-block"
                             friendship-status="{{$friendshipStatus}}"
                             :recipient="{{$user}}"
                             dusk="request-friendship"
                         ></friendship-btn>
-
+                        @endif
                     </div>
                 </div>
             </div>

@@ -37,13 +37,14 @@ class AcceptFriendshipsController extends Controller
 
     /**
      * @param User $sender
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(User $sender)
     {
         Friendship::where([
             'sender_id' =>$sender->id,
             'recipient_id' => auth()->id(),
-        ])->update(['status'=> 'deny']);
+        ])->update(['status'=> 'denied']);
 
         return response()->json([
             'friendship_status' => 'denied'
