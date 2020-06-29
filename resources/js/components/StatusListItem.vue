@@ -26,13 +26,10 @@
         </div>
         <div class="card-footer">
 
-            <comment-list>
-
-            </comment-list>
-            <!--            <comment-list-->
-            <!--            :comments="status.comments"-->
-            <!--            :status-id="status.id"-->
-            <!--            ></comment-list>-->
+            <comment-list
+                :comments="status.comments"
+                :status-id="status.id"
+            ></comment-list>
 
             <form @submit.prevent="addComment" v-if="isAuthenticated">
                 <div class="d-flex align-items-center">
@@ -60,7 +57,7 @@
 
 <script>
     import LikeBtn from "./LikeBtn";
-    import CommentList from './CommentList';
+    import CommentList from "./CommentList";
 
     export default {
         components: {
